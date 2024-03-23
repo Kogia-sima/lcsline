@@ -223,7 +223,7 @@ function! lcsline#branch() abort "{{{
     return ''
   endif
 
-  let l:branch = trim(system('git -C ' . fnamemodify(l:path, ':p:h') . ' symbolic-ref --short -q HEAD'), '\0x08\r\t\n ')
+  let l:branch = substitute(system('git -C ' . fnamemodify(l:path, ':p:h') . ' symbolic-ref --short -q HEAD'), '[\0x08\r\t\n ]\+$', '', '')
   if v:shell_error != 0 || l:branch ==# ''
     return ''
   endif
